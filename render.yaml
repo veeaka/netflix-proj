@@ -43,7 +43,6 @@ services:
   - type: web
     name: luminary-web
     env: static
-    plan: starter
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
