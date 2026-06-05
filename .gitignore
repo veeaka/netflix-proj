@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.env
+*.local
+
+# frontend build
+frontend/dist/
+
+# prisma
+backend/prisma/migrations/dev.db
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
