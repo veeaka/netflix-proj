@@ -4,6 +4,7 @@ import { logger } from './logger';
 const DEFAULT_TTL = 3600; // 1 hour
 
 export async function getCached<T>(key: string): Promise<T | null> {
+  if (!redis) return null;
   try {
     const data = await redis.get(key);
     return data ? (JSON.parse(data) as T) : null;
@@ -14,6 +15,7 @@ export async function getCached<T>(key: string): Promise<T | null> {
 }
 
 export async function setCached(key: string, value: unknown, ttl = DEFAULT_TTL): Promise<void> {
+  if (!redis) return;
   try {
     await redis.setex(key, ttl, JSON.stringify(value));
   } catch {
@@ -22,6 +24,7 @@ export async function setCached(key: string, value: unknown, ttl = DEFAULT_TTL):
 }
 
 export async function deleteCached(key: string): Promise<void> {
+  if (!redis) return;
   try {
     await redis.del(key);
   } catch {
