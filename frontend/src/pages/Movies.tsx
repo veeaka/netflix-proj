@@ -26,7 +26,7 @@ const fetchers: Record<Category, (page: number) => ReturnType<typeof moviesApi.g
   'now-playing': (p) => moviesApi.getNowPlaying(p),
 };
 
-const queryKeys: Record<Category, unknown[]> = {
+const queryKeys: Record<Category, readonly string[]> = {
   'popular': QUERY_KEYS.popular,
   'top-rated': QUERY_KEYS.topRated,
   'upcoming': QUERY_KEYS.upcoming,
@@ -39,7 +39,7 @@ export default function Movies() {
   const { isAuthenticated } = useAuthStore();
 
   const { data, isLoading } = useQuery({
-    queryKey: [...(queryKeys[category] as unknown[]), page],
+    queryKey: [...queryKeys[category], page],
     queryFn: () => fetchers[category](page),
     staleTime: 1000 * 60 * 10,
   });
